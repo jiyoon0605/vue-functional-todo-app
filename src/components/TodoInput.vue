@@ -4,28 +4,40 @@
     <span class="addContainer" v-on:click="addTodo">
       <i class="fas fa-plus addBtn"></i>
     </span>
+    <Modal v-if="showModal">
+      <h3 slot="header">Warning!<i class="fas fa-times closeModalBtn" @click="closeModal"/></h3>
+      <div slot="body">내용을 입력해 주세요</div>
+    </Modal>
   </div>
 </template>
 <script>
+import Modal from "@/components/common/Modal";
+
 export default {
   data: () => {
     return {
-      newTodoItem: ""
+      newTodoItem: "",
+      showModal: false,
     }
   },
   methods: {
     addTodo: function () {
       if (this.newTodoItem === '') {
+        this.showModal = true;
         return;
       }
-     const todoItem = this.newTodoItem;
+      this.$emit('addTodo', this.newTodoItem);
       this.clearInput();
-      this.$emit('addTodo', todoItem);
-
     },
     clearInput: function () {
       this.newTodoItem = "";
+    },
+    closeModal: function () {
+      this.showModal = false;
     }
+  },
+  components: {
+    Modal
   }
 }
 </script>
@@ -63,4 +75,11 @@ input {
   vertical-align: middle;
 }
 
+h3 {
+  color: #42b983;
+}
+
+.closeModalBtn {
+  color: #42b983;
+}
 </style>
