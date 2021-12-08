@@ -24,7 +24,8 @@ export default {
     addTodo: function (newTodoItem) {
       const obj = {
         completed: false,
-        item: newTodoItem
+        item: newTodoItem,
+        createdAt: Date.now()
       };
       localStorage.setItem(newTodoItem, JSON.stringify(obj));
       this.readTodos();
@@ -51,6 +52,7 @@ export default {
           }
         }
       }
+      this.todoItems.sort((a, b) => a.createdAt - b.createdAt);
     }
   },
   created: function () {

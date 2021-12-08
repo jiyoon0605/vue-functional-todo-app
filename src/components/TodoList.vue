@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul>
+    <transition-group name="list" tag="ul">
       <li class="shadow" v-for="(todoItem ,i) of todoItems" v-bind:key="i">
         <i class="fas fa-check checkBtn " :class="{checkBtnCompleted: todoItem.completed}"
            v-on:click="toggleComplete(todoItem)"></i>
@@ -9,8 +9,7 @@
            <i class="fas fa-trash-alt removeBtn"></i>
         </span>
       </li>
-    </ul>
-
+    </transition-group>
   </div>
 </template>
 <script>
@@ -64,6 +63,17 @@ li {
 .removeBtn {
   margin-right: auto;
   color: #de4343;
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(30px);
 }
 
 </style>
